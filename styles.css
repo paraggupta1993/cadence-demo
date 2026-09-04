@@ -1,0 +1,561 @@
+/* ------------------------------------------------------------------
+   Design tokens.
+
+   Every colour and every typeface on the site is one of these values.
+   Change them and the whole site moves; verify.py fails the build if a
+   colour literal appears anywhere below this block, which is the only
+   reason a six-colour palette stays a six-colour palette.
+
+   The default here is a warm almanack look: mustard, ink, leather red.
+   ------------------------------------------------------------------ */
+
+:root {
+  --ink:       #14120E;
+  --paper:     #FBFAF7;
+  --almanack:  #E9B824;
+  --leather:   #8E2B1F;
+  --rule:      #D9D5C9;
+  --mute:      #6B665C;
+
+  /* Three steps between --ink and --mute, plus ink at 35% for the endmark rule.
+     These were hardcoded through the stylesheet until an audit found them. */
+  --ink-2:     #3B372E;
+  --ink-3:     #4A4437;
+  --ink-4:     #5C5340;
+  --ink-faint: rgba(20, 18, 14, 0.35);
+
+  --display: "Zilla Slab", Georgia, serif;
+  --body:    "Newsreader", Georgia, serif;
+  --data:    "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --measure: 34rem;
+  --gutter:  clamp(1.25rem, 5vw, 3.5rem);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.1875rem;
+  line-height: 1.65;
+  font-synthesis-weight: none;
+}
+
+a { color: var(--leather); }
+
+:focus-visible {
+  outline: 3px solid var(--leather);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- masthead */
+
+.masthead {
+  background: var(--almanack);
+  border-bottom: 3px solid var(--ink);
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gutter) 0;
+  position: relative;
+}
+
+.masthead__inner {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.wordmark {
+  display: block;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(3.25rem, 13vw, 7.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.masthead__line {
+  max-width: 30rem;
+  margin: 1.1rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.masthead__edition {
+  margin: 1.75rem 0 0;
+  font-family: var(--data);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* The boundary: a dashed rope along the bottom of the board. */
+.masthead::after {
+  content: "";
+  display: block;
+  height: 0;
+  margin-top: 1.5rem;
+  border-top: 2px dashed var(--ink-faint);
+}
+
+/* ------------------------------------------------------------------ layout */
+
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) 5rem;
+}
+
+.wrap--reading {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+}
+
+.section-label {
+  margin: 0 0 1.75rem;
+  font-family: var(--data);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* ------------------------------------------------------- the index of posts */
+
+.colheads {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1.5px solid var(--ink);
+  font-family: var(--data);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry {
+  border-bottom: 1px solid var(--rule);
+}
+
+.entry__link {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.entry__period {
+  font-family: var(--data);
+  font-size: 0.85rem;
+  padding-top: 0.35rem;
+  color: var(--leather);
+  white-space: nowrap;
+}
+
+.entry__title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3.4vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  transition: text-decoration-color 140ms ease;
+}
+
+.entry__link:hover .entry__title,
+.entry__link:focus-visible .entry__title {
+  text-decoration-color: var(--leather);
+}
+
+.entry__standfirst {
+  margin: 0.55rem 0 0;
+  color: var(--ink-2);
+}
+
+.entry__meta {
+  margin: 0.75rem 0 0;
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* -------------------------------------------------------------- post header */
+
+.backlink {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mute);
+}
+
+.backlink:hover { color: var(--leather); }
+
+.post__period {
+  margin: 0 0 0.9rem;
+  font-family: var(--data);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--leather);
+}
+
+.post__title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 6.5vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.post__standfirst {
+  margin: 1.25rem 0 0;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--ink-2);
+}
+
+.post__meta {
+  margin: 1.75rem 0 0;
+  padding-top: 1rem;
+  border-top: 1.5px solid var(--ink);
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* ---------------------------------------------------------------- post body */
+
+.post__body { margin-top: 2.75rem; }
+
+.post__body p { margin: 0 0 1.4rem; }
+
+.post__body > p:first-of-type::first-line {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+}
+
+.post__body h2 {
+  margin: 3rem 0 1rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* Ten items in sequence — the numeral is doing real work, so it gets to lead. */
+.post__body h2 .num {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--data);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--leather);
+}
+
+.post__body strong { font-weight: 600; }
+
+.post__body em { color: var(--ink-2); }
+
+/* A maiden over closes the piece. */
+.endmark {
+  margin: 3rem 0 0;
+  font-family: var(--data);
+  font-size: 1.1rem;
+  letter-spacing: 0.65em;
+  color: var(--leather);
+}
+
+.post__coda {
+  margin: 1.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1.05rem;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ generic */
+
+.prose h2 {
+  margin: 2.5rem 0 0.85rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+
+.prose p { margin: 0 0 1.3rem; }
+
+.prose ul { margin: 0 0 1.3rem; padding-left: 1.2rem; }
+
+.prose li { margin-bottom: 0.5rem; }
+
+/* ------------------------------------------------------------------- footer */
+
+.sitefoot {
+  border-top: 3px solid var(--ink);
+  background: var(--almanack);
+  padding: 2rem var(--gutter);
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.sitefoot__inner {
+  max-width: 62rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  justify-content: space-between;
+}
+
+.sitefoot a { color: var(--ink-3); }
+
+/* ------------------------------------------------------------------- mobile */
+
+@media (max-width: 640px) {
+  body { font-size: 1.125rem; }
+
+  .colheads { display: none; }
+
+  .entry__link {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .entry__period { padding-top: 0; }
+}
+
+/* ------------------------------------------------------------ page entrance */
+
+@media (prefers-reduced-motion: no-preference) {
+  .wordmark,
+  .masthead__line,
+  .masthead__edition {
+    animation: rise 520ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+
+  .masthead__line     { animation-delay: 70ms; }
+  .masthead__edition  { animation-delay: 130ms; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(0.6rem); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* ------------------------------------------------------- scorecard + hub links */
+
+.post__body .sourcelink {
+  margin: 1.9rem 0;
+  padding: 0.85rem 0 0.85rem 1.1rem;
+  border-left: 3px solid var(--almanack);
+  font-family: var(--data);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.post__body .morelink {
+  margin: 1.6rem 0 0;
+  font-family: var(--data);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.post__body .morelink a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.post__body .morelink a:hover { border-bottom-color: var(--leather); }
+
+/* --------------------------------------------------------- support / coffee */
+
+.coffee {
+  margin: 2.5rem 0 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.coffee__line {
+  margin: 0 0 0.9rem;
+  font-family: var(--data);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+}
+
+.coffee__btn {
+  display: inline-block;
+  padding: 0.6rem 1.1rem;
+  background: var(--almanack);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: transform 0.08s ease;
+}
+
+.coffee__btn:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--ink); }
+
+/* ------------------------------------------------------------ consent banner */
+
+.consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 3px solid var(--almanack);
+}
+
+.consent__inner {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1.1rem var(--gutter);
+  display: flex;
+  gap: 1.4rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.consent__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 48ch;
+}
+
+.consent__actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+
+.consent__btn {
+  padding: 0.5rem 1rem;
+  font-family: var(--data);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: 2px solid var(--paper);
+  background: transparent;
+  color: var(--paper);
+}
+
+.consent__btn--yes { background: var(--almanack); border-color: var(--almanack); color: var(--ink); }
+.consent__btn:hover { opacity: 0.85; }
+.consent__btn:focus-visible { outline: 3px solid var(--almanack); outline-offset: 2px; }
+
+/* ------------------------------------------------------------- next / tomorrow */
+
+.post__body .nextup {
+  margin: 2.2rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 0.85rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.post__body .nextup__l {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  flex: none;
+}
+
+.post__body .nextup a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.post__body .nextup a:hover { border-bottom-color: var(--leather); }
+
+/* not published yet: a headline you cannot click is the point */
+.post__body .nextup--soon .nextup__l { color: var(--leather); }
+.post__body .nextup--soon span:last-child { color: var(--ink); }
+
+/* ------------------------------------------------------------------- charts */
+
+.post__body .chart {
+  margin: 2.4rem 0;
+  padding: 0;
+}
+
+.post__body .chart svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  color: var(--ink);
+}
+
+.post__body .chart figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--data);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--mute);
+}
+
+/* ---------------------------------------------------------- hub index rows */
+
+.post__body .mystery {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0 1rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+  margin: 0;
+}
+
+.post__body .mystery:last-of-type { border-bottom: 0; }
+
+.post__body .mystery__txt { display: block; }
+
+.post__body .mystery__yr {
+  font-family: var(--data);
+  font-size: 0.82rem;
+  color: var(--leather);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 32rem) {
+  .post__body .mystery { grid-template-columns: 1fr; gap: 0.3rem; }
+}

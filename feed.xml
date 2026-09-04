@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cadence</title>
+    <link>https://paraggupta1993.github.io/cadence-demo/</link>
+    <description>The demo site for Cadence: a zero-dependency static blog that builds, verifies and publishes itself on a schedule.</description>
+    <language>en</language>
+    <atom:link href="https://paraggupta1993.github.io/cadence-demo/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Setting it up</title>
+      <link>https://paraggupta1993.github.io/cadence-demo/posts/setting-it-up</link>
+      <guid isPermaLink="true">https://paraggupta1993.github.io/cadence-demo/posts/setting-it-up</guid>
+      <pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate>
+      <description>Four files to edit, one command to run, and a scheduled job that never needs you again.</description>
+    </item>
+    <item>
+      <title>What the verifier catches</title>
+      <link>https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches</link>
+      <guid isPermaLink="true">https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches</guid>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <description>The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.</description>
+    </item>
+    <item>
+      <title>The queue</title>
+      <link>https://paraggupta1993.github.io/cadence-demo/posts/the-queue</link>
+      <guid isPermaLink="true">https://paraggupta1993.github.io/cadence-demo/posts/the-queue</guid>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 +0000</pubDate>
+      <description>Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.</description>
+    </item>
+  </channel>
+</rss>

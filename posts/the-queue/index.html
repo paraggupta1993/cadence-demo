@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The queue — Cadence</title>
+<meta name="description" content="Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.">
+<link rel="canonical" href="https://paraggupta1993.github.io/cadence-demo/posts/the-queue">
+<meta property="og:site_name" content="Cadence">
+<meta property="og:title" content="The queue">
+<meta property="og:description" content="Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://paraggupta1993.github.io/cadence-demo/posts/the-queue">
+<meta property="og:image" content="https://paraggupta1993.github.io/cadence-demo/share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-01-05">
+<meta property="article:section" content="How it works">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The queue">
+<meta name="twitter:description" content="Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.">
+<meta name="twitter:image" content="https://paraggupta1993.github.io/cadence-demo/share-card.png">
+<link rel="alternate" type="application/rss+xml" title="Cadence" href="https://paraggupta1993.github.io/cadence-demo/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The queue",
+  "description": "Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.",
+  "datePublished": "2026-01-05",
+  "url": "https://paraggupta1993.github.io/cadence-demo/posts/the-queue",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://paraggupta1993.github.io/cadence-demo/posts/the-queue"
+  },
+  "image": "https://paraggupta1993.github.io/cadence-demo/share-card.png",
+  "author": {
+    "@type": "Person",
+    "name": "Cadence"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cadence"
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Cadence",
+    "url": "https://paraggupta1993.github.io/cadence-demo/"
+  },
+  "articleSection": "How it works"
+}
+</script>
+</head>
+<body>
+
+<main class="wrap wrap--reading">
+
+  <a class="backlink" href="../../">&larr; How it works</a>
+
+  <article>
+    <header>
+      <p class="post__period">Step one</p>
+      <h1 class="post__title">The queue</h1>
+      <p class="post__standfirst">Write thirty pieces on a Sunday. Publish one a day for a month, without touching anything.</p>
+      <p class="post__meta">How it works &nbsp;·&nbsp; <time datetime="2026-01-05">5 January 2026</time> &nbsp;·&nbsp; 3 min read</p>
+    </header>
+
+    <div class="post__body">
+
+      <p>The hard part of a daily blog is not the writing. It is the daily. Miss three days and the habit is gone; miss ten and the site is dead, except that it does not look dead, because a static site with nothing new on it looks exactly like a static site that is doing fine.</p>
+
+      <p>So the writing and the publishing are separated. Every file in <code>content/posts/</code> carries a <code>publish:</code> date. The build writes out only the pieces whose date has arrived. Everything else sits in the queue, on disk, in git, invisible.</p>
+
+      <p>That means a productive Sunday buys a quiet month. You write six pieces, date them across the next six days, commit, and close the laptop. The scheduled workflow runs every night, finds the one that came due, builds it, verifies it and deploys. Nothing is released early, because the build has no way to release it early.</p>
+
+      <h2>Why the release hour matters</h2>
+
+      <p>A piece dated the fifth does not go live at midnight. It goes live at the hour named in <code>site.json</code>, in the timezone named there too. Six in the evening, local, is a reasonable default: it is when people read.</p>
+
+      <p>The awkwardness is that GitHub's scheduler speaks only UTC and does not observe daylight saving. Six in the evening in California is one in the morning UTC for half the year and two for the other half. The workflow therefore fires at both hours, and the release gate in the build makes whichever one is wrong into a no-op. One of them always lands.</p>
+
+      <p class="sourcelink"><a href="https://docs.python.org/3/library/zoneinfo.html" target="_blank" rel="noopener">Python zoneinfo, the standard library module doing the timezone work &rarr;</a></p>
+
+      <h2>What happens when it runs out</h2>
+
+      <p>A cron job that publishes nothing still reports success. That is the failure this system cannot otherwise show you: the queue empties, the workflow goes green every night, and the blog quietly stops.</p>
+
+      <p>So the last step of every run is <code>build.py --require-queue 7</code>, which exits non-zero when fewer than seven pieces remain. The publish has already happened by then, so nothing is blocked. All it does is turn silence into a red run and an email.</p>
+
+      <p class="endmark">••••••</p>
+
+      <p class="post__coda">No. 1 in <a href="../../series/how-it-works">How It Works</a>, a series of 3.</p>
+
+      <p class="nextup"><span class="nextup__l">Next</span><a href="../what-the-verifier-catches">What the verifier catches</a></p>
+
+    </div>
+  </article>
+
+</main>
+
+<footer class="sitefoot">
+  <div class="sitefoot__inner">
+    <span>Cadence &nbsp;·&nbsp; the demo is the product</span>
+    <span><a href="../../about">About</a></span>
+  </div>
+</footer>
+
+<script src="/cadence-demo/analytics.js" defer></script>
+
+</body>
+</html>

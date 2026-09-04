@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the verifier catches — Cadence</title>
+<meta name="description" content="The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.">
+<link rel="canonical" href="https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches">
+<meta property="og:site_name" content="Cadence">
+<meta property="og:title" content="What the verifier catches">
+<meta property="og:description" content="The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches">
+<meta property="og:image" content="https://paraggupta1993.github.io/cadence-demo/share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-01-06">
+<meta property="article:section" content="How it works">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What the verifier catches">
+<meta name="twitter:description" content="The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.">
+<meta name="twitter:image" content="https://paraggupta1993.github.io/cadence-demo/share-card.png">
+<link rel="alternate" type="application/rss+xml" title="Cadence" href="https://paraggupta1993.github.io/cadence-demo/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What the verifier catches",
+  "description": "The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.",
+  "datePublished": "2026-01-06",
+  "url": "https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://paraggupta1993.github.io/cadence-demo/posts/what-the-verifier-catches"
+  },
+  "image": "https://paraggupta1993.github.io/cadence-demo/share-card.png",
+  "author": {
+    "@type": "Person",
+    "name": "Cadence"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cadence"
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Cadence",
+    "url": "https://paraggupta1993.github.io/cadence-demo/"
+  },
+  "articleSection": "How it works"
+}
+</script>
+</head>
+<body>
+
+<main class="wrap wrap--reading">
+
+  <a class="backlink" href="../../">&larr; How it works</a>
+
+  <article>
+    <header>
+      <p class="post__period">Step two</p>
+      <h1 class="post__title">What the verifier catches</h1>
+      <p class="post__standfirst">The expensive failures on a static site are the silent ones. Nothing 500s. The post is simply never found.</p>
+      <p class="post__meta">How it works &nbsp;·&nbsp; <time datetime="2026-01-06">6 January 2026</time> &nbsp;·&nbsp; 4 min read</p>
+    </header>
+
+    <div class="post__body">
+
+      <p>A dynamic site fails loudly. Something throws, a page 500s, an alert fires and somebody is woken up. A static site does not have that courtesy. It fails by omission, and omission has no symptom.</p>
+
+      <p>Here is the one that pays for the whole file. A post builds. It renders correctly. The link works, the typography is right, you read it twice and it is good. It is also absent from <code>sitemap.xml</code>, because of a one-character mistake in a slug three weeks ago.</p>
+
+      <p>Nothing anywhere will tell you. The page is perfect and nobody will ever see it.</p>
+
+      <p class="sourcelink"><a href="https://www.sitemaps.org/protocol.html" target="_blank" rel="noopener">The sitemap protocol, which is what a missing entry means you are not speaking &rarr;</a></p>
+
+      <h2>The rule</h2>
+
+      <p>Write the verifier before you write the content. Not after the first bug, and not when you get round to it. Before.</p>
+
+      <p>This is not a testing-discipline argument, it is an arithmetic one. Checks are cheap to write once and free to run forever, and the class of bug they catch is the class you cannot catch by reading, because reading shows you what is on the page and this is a bug about what is not.</p>
+
+      <h2>What is checked here</h2>
+
+      <p>Every relative link resolves to a file on disk. Every page has a canonical, and the canonical points at your domain and not at whichever domain you copied the config from. Every published post appears in both the sitemap and the feed. Every block of structured data parses. The security headers exist and have not quietly grown an <code>unsafe-inline</code>. No colour literal has escaped the token block. No authoring file is about to be published at your domain by accident.</p>
+
+      <p>Roughly four hundred assertions, and the deploy script refuses to upload anything if one of them fails. Not a warning. A refusal.</p>
+
+      <p>Every check exists because something went wrong once. The list is not a specification somebody designed; it is a scar record, and that is the only kind of check list worth having.</p>
+
+      <p class="endmark">••••••</p>
+
+      <p class="post__coda">No. 2 in <a href="../../series/how-it-works">How It Works</a>, a series of 3.</p>
+
+      <p class="nextup"><span class="nextup__l">Next</span><a href="../setting-it-up">Setting it up</a></p>
+
+    </div>
+  </article>
+
+</main>
+
+<footer class="sitefoot">
+  <div class="sitefoot__inner">
+    <span>Cadence &nbsp;·&nbsp; the demo is the product</span>
+    <span><a href="../../about">About</a></span>
+  </div>
+</footer>
+
+<script src="/cadence-demo/analytics.js" defer></script>
+
+</body>
+</html>

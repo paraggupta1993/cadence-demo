@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paraggupta1993.github.io/cadence-demo/sitemap.xml
