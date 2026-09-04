@@ -71,7 +71,7 @@
 
     <div class="post__body">
 
-      <p>There is no install step because there is nothing to install. The whole system is two Python files, and Python's standard library is the only dependency. No npm, no <code>package.json</code>, no lockfile, no framework, nothing that can rot while you are not looking.</p>
+      <p>There is no install step because there is nothing to install. The whole system is three Python files, and Python's standard library is the only dependency. No <code>package.json</code>, no lockfile, no framework, nothing that can rot while you are not looking. The one npm call is <code>npx wrangler</code> at upload time, and only if you deploy to Cloudflare.</p>
 
       <p>That is a deliberate trade. A generated site could do more if it pulled in a toolchain. It would also break in eighteen months, on a machine you no longer have, for reasons in a dependency you never chose.</p>
 
